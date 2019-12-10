@@ -3,11 +3,15 @@ unit ServerMethodsUnit;
 interface
 
 uses System.SysUtils, System.Classes, System.Json,
-    Datasnap.DSServer, Datasnap.DSAuth;
+    Datasnap.DSServer, Datasnap.DSAuth, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  Data.DB, FireDAC.Comp.Client;
 
 type
 {$METHODINFO ON}
   TServerMethods = class(TDataModule)
+    FDConnection1: TFDConnection;
   private
     { Private declarations }
   public
