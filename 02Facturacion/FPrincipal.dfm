@@ -44,6 +44,7 @@ object FormPrincipal: TFormPrincipal
       end
       object MenuItemConsultar: TMenuItem
         Caption = 'Consultar'
+        OnClick = MenuItemConsultarClick
       end
       object MenuItemSeparadorFactura: TMenuItem
         Caption = '-'

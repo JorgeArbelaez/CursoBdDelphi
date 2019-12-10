@@ -59,10 +59,6 @@ object DataModuleFactura: TDataModuleFactura
         Value = 0.000000000000000000
       end>
   end
-  object FDQueryFacturaActualizar: TFDQuery
-    Left = 72
-    Top = 80
-  end
   object FDQueryFacturaConsultar: TFDQuery
     Connection = DataModulePrincipal.FDConnection
     SQL.Strings = (
@@ -75,7 +71,7 @@ object DataModuleFactura: TDataModuleFactura
       '  FROM [FACTURA_CAB]'
       '  WHERE [NUMERO_FACTURA] = :NUMERO_FACTURA')
     Left = 72
-    Top = 136
+    Top = 80
     ParamData = <
       item
         Name = 'NUMERO_FACTURA'
@@ -126,7 +122,7 @@ object DataModuleFactura: TDataModuleFactura
       '  FROM [FACTURA_DET]'
       '  WHERE [NUMERO_FACTURA] = :NUMERO_FACTURA')
     Left = 248
-    Top = 136
+    Top = 80
     ParamData = <
       item
         Name = 'NUMERO_FACTURA'

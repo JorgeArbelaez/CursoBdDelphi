@@ -11,7 +11,6 @@ uses
 type
   TDataModuleFactura = class(TDataModule)
     FDQueryFacturaCrear: TFDQuery;
-    FDQueryFacturaActualizar: TFDQuery;
     FDQueryFacturaConsultar: TFDQuery;
     FDQueryFacturaConsultarNUMERO_FACTURA: TIntegerField;
     FDQueryFacturaConsultarFECHA: TDateField;
@@ -32,7 +31,11 @@ type
   public
     { Public declarations }
     procedure CrearFactura(DataSetCabecera, DataSetDetalle: TDataSet);
+    procedure ConsultarFactura(Numero: Integer;
+      DataSetCabecera, DataSetDetalle: TDataSet);
   end;
+
+  EFacturaError = class(Exception);
 
 var
   DataModuleFactura: TDataModuleFactura;
@@ -41,10 +44,28 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses MPrincipal;
+uses MPrincipal, UDbUtils;
 
 {$R *.dfm}
 { TDataModuleFactura }
+
+procedure TDataModuleFactura.ConsultarFactura(Numero: Integer;
+  DataSetCabecera, DataSetDetalle: TDataSet);
+begin
+  FDQueryFacturaConsultar.ParamByName('NUMERO_FACTURA').Value := Numero;
+  FDQueryFacturaConsultar.Open;
+  try
+    if FDQueryFacturaConsultar.Eof then
+    begin
+      raise EFacturaError.Create(Format('La factura número %d no existe',
+        [Numero]));
+    end;
+    TDbUtils.CopiarFila(FDQueryFacturaConsultar, DataSetCabecera);
+  finally
+    FDQueryFacturaConsultar.Close;
+  end;
+    FDQueryDetalleConsultar.ParamByName('NUMERO_FACTURA').Value := Numero;
+end;
 
 procedure TDataModuleFactura.CrearFactura(DataSetCabecera, DataSetDetalle
   : TDataSet);
@@ -99,6 +120,7 @@ begin
     DataModulePrincipal.FDConnection.Commit;
   except
     DataModulePrincipal.FDConnection.Rollback;
+    raise;
   end;
 end;
 

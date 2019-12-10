@@ -62,8 +62,8 @@ object FormFactura: TFormFactura
       FocusControl = DBEditNumero
     end
     object LabelFecha: TLabel
-      Left = 144
-      Top = 8
+      Left = 148
+      Top = 6
       Width = 29
       Height = 13
       Caption = 'Fecha'
@@ -89,14 +89,28 @@ object FormFactura: TFormFactura
       Width = 24
       Height = 13
       Caption = 'Total'
-      FocusControl = DBEditTotal
     end
-    object SpeedButton1: TSpeedButton
+    object SpeedButtonBuscarCliente: TSpeedButton
       Left = 611
       Top = 24
       Width = 23
       Height = 22
       Caption = '...'
+    end
+    object DBTextTotal: TDBText
+      Left = 640
+      Top = 27
+      Width = 104
+      Height = 19
+      AutoSize = True
+      DataField = 'TOTAL'
+      DataSource = DataSourceFactura
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
     object DBEditNumero: TDBEdit
       Left = 8
@@ -126,15 +140,6 @@ object FormFactura: TFormFactura
       DataSource = DataSourceFactura
       TabOrder = 4
     end
-    object DBEditTotal: TDBEdit
-      Left = 641
-      Top = 24
-      Width = 105
-      Height = 21
-      DataField = 'TOTAL'
-      DataSource = DataSourceFactura
-      TabOrder = 5
-    end
     object DateTimePickerFecha: TDateTimePicker
       Left = 148
       Top = 24
@@ -154,7 +159,7 @@ object FormFactura: TFormFactura
       TabOrder = 2
     end
   end
-  object DBGrid1: TDBGrid
+  object DBGridDetalles: TDBGrid
     Left = 0
     Top = 89
     Width = 753
@@ -232,6 +237,7 @@ object FormFactura: TFormFactura
       FieldName = 'TOTAL'
       Origin = 'TOTAL'
       Required = True
+      currency = True
     end
   end
   object DataSourceFactura: TDataSource
@@ -278,6 +284,7 @@ object FormFactura: TFormFactura
       FieldName = 'VALOR_UNITARIO'
       Origin = 'VALOR_UNITARIO'
       Required = True
+      currency = True
     end
     object ClientDataSetDetalleSUB_TOTAL: TFloatField
       DisplayLabel = 'Subtotal'
@@ -285,6 +292,7 @@ object FormFactura: TFormFactura
       FieldName = 'SUB_TOTAL'
       Origin = 'SUB_TOTAL'
       Required = True
+      currency = True
       Calculated = True
     end
   end

@@ -10,6 +10,8 @@ uses
   Vcl.Grids, Vcl.DBGrids, Vcl.Buttons;
 
 type
+  TEstadoFactura = (efCrear, efConsultar);
+
   TFormFactura = class(TForm)
     ToolBar: TToolBar;
     PanelFactura: TPanel;
@@ -29,7 +31,6 @@ type
     DBEditIdCliente: TDBEdit;
     DBEditCliente: TDBEdit;
     LabelTotal: TLabel;
-    DBEditTotal: TDBEdit;
     DBNavigator: TDBNavigator;
     DateTimePickerFecha: TDateTimePicker;
     DateTimePickerVencimiento: TDateTimePicker;
@@ -41,8 +42,9 @@ type
     ClientDataSetDetalleCANTIDAD: TFloatField;
     ClientDataSetDetalleVALOR_UNITARIO: TFloatField;
     ClientDataSetDetalleSUB_TOTAL: TFloatField;
-    DBGrid1: TDBGrid;
-    SpeedButton1: TSpeedButton;
+    DBGridDetalles: TDBGrid;
+    SpeedButtonBuscarCliente: TSpeedButton;
+    DBTextTotal: TDBText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure DBEditNumeroChange(Sender: TObject);
     procedure ClientDataSetFacturaBeforePost(DataSet: TDataSet);
@@ -51,10 +53,14 @@ type
     procedure Totalizar(DataSet: TDataSet);
   private
     { Private declarations }
+    FEstado: TEstadoFactura;
+    procedure SetEstado(const Value: TEstadoFactura);
+    property Estado: TEstadoFactura read FEstado write SetEstado;
   public
     { Public declarations }
     procedure PonerTitulo(Titulo: String);
     procedure CrearNueva;
+    procedure Consultar(Numero: Integer);
   end;
 
 implementation
@@ -96,7 +102,7 @@ procedure TFormFactura.ClientDataSetFacturaBeforePost(DataSet: TDataSet);
 var
   I: Integer;
 begin
-  if ClientDataSetFactura.State = dsInsert then
+  if Estado = efCrear then
   begin
     I := 0;
     ClientDataSetDetalle.First;
@@ -114,10 +120,20 @@ begin
   end;
 end;
 
+procedure TFormFactura.Consultar(Numero: Integer);
+begin
+  Estado:= efConsultar;
+  ClientDataSetFactura.CreateDataSet;
+  ClientDataSetDetalle.CreateDataSet;
+  DataModuleFactura.ConsultarFactura(Numero, ClientDataSetFactura, ClientDataSetDetalle);
+
+end;
+
 procedure TFormFactura.CrearNueva;
 begin
   ClientDataSetFactura.CreateDataSet;
   ClientDataSetFactura.Insert;
+  Estado:= efCrear;
   DBEditNumeroChange(nil);
   DateTimePickerFecha.Date := Date;
   DateTimePickerVencimiento.Date := IncMonth(Date);
@@ -150,6 +166,29 @@ end;
 procedure TFormFactura.PonerTitulo(Titulo: String);
 begin
   Caption := 'Factura - ' + Titulo;
+  if FEstado = efCrear then
+  begin
+    Caption:= 'Creando ' + Caption;
+  end
+  else
+  begin
+    Caption:= 'Consultando ' + Caption;
+  end;
+end;
+
+procedure TFormFactura.SetEstado(const Value: TEstadoFactura);
+begin
+  FEstado := Value;
+  if FEstado = efConsultar then
+  begin
+    DBEditNumero.ReadOnly:= True;
+    DateTimePickerFecha.Enabled:= True;
+    DateTimePickerVencimiento.Enabled:= True;
+    DBEditIdCliente.ReadOnly:= True;
+    DBEditIdCliente.ReadOnly:= True;
+    SpeedButtonBuscarCliente.Enabled:= False;
+    DBGridDetalles.ReadOnly:= True;
+  end;
 end;
 
 end.

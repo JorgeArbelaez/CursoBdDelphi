@@ -24,6 +24,7 @@ type
     procedure MenuItemCiudadesClick(Sender: TObject);
     procedure MenuItemCrearClick(Sender: TObject);
     procedure MenuItemFacturasClick(Sender: TObject);
+    procedure MenuItemConsultarClick(Sender: TObject);
   private
     { Private declarations }
     procedure MenuItemMostrarFactura(Sender: TObject);
@@ -65,11 +66,33 @@ begin
   end;
 end;
 
+procedure TFormPrincipal.MenuItemConsultarClick(Sender: TObject);
+var
+  Str: String;
+  NumeroFactura: Integer;
+  FormFactura: TFormFactura;
+begin
+  Str := InputBox('Buscar factura', 'Número', '');
+  if Str = '' then
+  begin
+    Exit;
+  end;
+  NumeroFactura := StrToInt(Str);
+  FormFactura := TFormFactura.Create(Self);
+  try
+    FormFactura.Consultar(NumeroFactura);
+    FormFactura.Show;
+  except
+    FormFactura.Free;
+    raise;
+  end;
+end;
+
 procedure TFormPrincipal.MenuItemCrearClick(Sender: TObject);
 var
   FormFactura: TFormFactura;
 begin
-  FormFactura:= TFormFactura.Create(Self);
+  FormFactura := TFormFactura.Create(Self);
   FormFactura.CrearNueva;
   FormFactura.Show;
 end;
@@ -86,12 +109,12 @@ begin
   end;
   for I := 0 to Screen.FormCount - 1 do
   begin
-    Form:= Screen.Forms[I];
+    Form := Screen.Forms[I];
     if Form is TFormFactura then
     begin
-      MenuItem:= TMenuItem.Create(Self);
-      MenuItem.Caption:= Form.Caption;
-      MenuItem.OnClick:= MenuItemMostrarFactura;
+      MenuItem := TMenuItem.Create(Self);
+      MenuItem.Caption := Form.Caption;
+      MenuItem.OnClick := MenuItemMostrarFactura;
       MenuItemFacturas.Add(MenuItem);
     end;
   end;
@@ -104,12 +127,12 @@ var
   I: Integer;
   Form: TForm;
 begin
-  MenuItem:= Sender as TMenuItem;
-  Titulo:= MenuItem.Caption;
-  Titulo:= Titulo.Replace('&', '');
+  MenuItem := Sender as TMenuItem;
+  Titulo := MenuItem.Caption;
+  Titulo := Titulo.Replace('&', '');
   for I := 0 to Screen.FormCount - 1 do
   begin
-    Form:= Screen.Forms[I];
+    Form := Screen.Forms[I];
     if Form.Caption = Titulo then
     begin
       Form.BringToFront;

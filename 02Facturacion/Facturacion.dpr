@@ -7,7 +7,8 @@ uses
   MPrincipal in 'MPrincipal.pas' {DataModulePrincipal: TDataModule},
   FCiudades in 'FCiudades.pas' {FormCiudades},
   FFactura in 'FFactura.pas' {FormFactura},
-  MFactura in 'MFactura.pas' {DataModuleFactura: TDataModule};
+  MFactura in 'MFactura.pas' {DataModuleFactura: TDataModule},
+  UDbUtils in 'UDbUtils.pas';
 
 {$R *.res}
 
