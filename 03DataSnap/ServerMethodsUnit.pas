@@ -11,7 +11,6 @@ uses System.SysUtils, System.Classes, System.Json,
 type
 {$METHODINFO ON}
   TServerMethods = class(TDataModule)
-    FDConnection1: TFDConnection;
   private
     { Private declarations }
   public
