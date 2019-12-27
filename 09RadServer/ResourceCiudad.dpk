@@ -30,7 +30,13 @@ package ResourceCiudad;
 
 requires
   rtl,
-  emsserverapi;
+  emsserverapi,
+  dbrtl,
+  FireDAC,
+  FireDACCommonDriver,
+  FireDACCommon,
+  FireDACCommonODBC,
+  FireDACMSSQLDriver;
 
 contains
   ModuleCiudad in 'ModuleCiudad.pas' {CiudadResource: TDataModule};
