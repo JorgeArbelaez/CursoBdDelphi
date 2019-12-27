@@ -1,0 +1,93 @@
+object FormCliente: TFormCliente
+  Left = 0
+  Top = 0
+  Caption = 'Cliente REST'
+  ClientHeight = 215
+  ClientWidth = 310
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object LabelSumando1: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 16.000000000000000000
+    Size.Width = 81.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Sumando 1'
+    TabOrder = 2
+  end
+  object LabelSumando2: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 48.000000000000000000
+    Size.Width = 73.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Sumando 2'
+    TabOrder = 1
+  end
+  object NumberBoxSumando1: TNumberBox
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 3
+    Cursor = crIBeam
+    Max = 10000000000.000000000000000000
+    Value = 3.000000000000000000
+    Position.X = 88.000000000000000000
+    Position.Y = 13.000000000000000000
+    OnChange = LimpiarSuma
+  end
+  object NumberBoxSumando2: TNumberBox
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 4
+    Cursor = crIBeam
+    Max = 10000000000.000000000000000000
+    Value = 5.000000000000000000
+    Position.X = 88.000000000000000000
+    Position.Y = 45.000000000000000000
+    OnChange = LimpiarSuma
+  end
+  object ButtonSumar: TButton
+    Position.X = 96.000000000000000000
+    Position.Y = 80.000000000000000000
+    TabOrder = 5
+    Text = 'Sumar'
+    OnClick = ButtonSumarClick
+  end
+  object LabelResultado: TLabel
+    Position.X = 16.000000000000000000
+    Position.Y = 120.000000000000000000
+    Size.Width = 65.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Resultado'
+    TabOrder = 6
+  end
+  object LabelSuma: TLabel
+    StyledSettings = [Family]
+    Position.X = 93.000000000000000000
+    Position.Y = 120.000000000000000000
+    TextSettings.Font.Size = 14.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.FontColor = claBrown
+    Text = '8'
+    TabOrder = 7
+  end
+  object SQLConnection: TSQLConnection
+    DriverName = 'DataSnap'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=Data.DBXDataSnap'
+      'HostName=localhost'
+      'Port=8080'
+      'CommunicationProtocol=http'
+      'DatasnapContext=datasnap/'
+      
+        'DriverAssemblyLoader=Borland.Data.TDBXClientDriverLoader,Borland' +
+        '.Data.DbxClientDriver,Version=24.0.0.0,Culture=neutral,PublicKey' +
+        'Token=91d62ebb5b0d1b1b')
+    Left = 224
+    Top = 24
+    UniqueId = '{5698A79E-E8AA-41F4-9BAA-11DFEA5887AB}'
+  end
+end
