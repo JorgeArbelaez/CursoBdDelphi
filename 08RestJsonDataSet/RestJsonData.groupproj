@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{6358FE92-498C-47B1-A6A8-E2341EF3A110}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="RestJsonDataSet.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="RestJsonCliente.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="RestJsonDataSet">
+        <MSBuild Projects="RestJsonDataSet.dproj"/>
+    </Target>
+    <Target Name="RestJsonDataSet:Clean">
+        <MSBuild Projects="RestJsonDataSet.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RestJsonDataSet:Make">
+        <MSBuild Projects="RestJsonDataSet.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="RestJsonCliente">
+        <MSBuild Projects="RestJsonCliente.dproj"/>
+    </Target>
+    <Target Name="RestJsonCliente:Clean">
+        <MSBuild Projects="RestJsonCliente.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RestJsonCliente:Make">
+        <MSBuild Projects="RestJsonCliente.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="RestJsonDataSet;RestJsonCliente"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="RestJsonDataSet:Clean;RestJsonCliente:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="RestJsonDataSet:Make;RestJsonCliente:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -1,4 +1,6 @@
 *.identcache
 *.local
+*.tvsconfig
+*.vlb
 win32/
 __history/

@@ -1,0 +1,94 @@
+object FormCliente: TFormCliente
+  Left = 0
+  Top = 0
+  Caption = 'Tabla de ciudades'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object ToolBar: TToolBar
+    Size.Width = 640.000000000000000000
+    Size.Height = 40.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object ButtonConsultar: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      TabOrder = 0
+      Text = 'Consultar'
+      OnClick = ButtonConsultarClick
+    end
+  end
+  object ListViewCiudades: TListView
+    ItemAppearanceClassName = 'TListItemRightDetailAppearance'
+    ItemEditAppearanceClassName = 'TListItemRightDetailDeleteAppearance'
+    HeaderAppearanceClassName = 'TListHeaderObjects'
+    FooterAppearanceClassName = 'TListHeaderObjects'
+    Align = Client
+    Size.Width = 640.000000000000000000
+    Size.Height = 440.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+  end
+  object FDMemTable: TFDMemTable
+    CachedUpdates = True
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 160
+    Top = 96
+    object FDMemTableID_CIUDAD: TIntegerField
+      FieldName = 'ID_CIUDAD'
+      Origin = 'ID_CIUDAD'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDMemTableNOMBRE_CIUDAD: TStringField
+      FieldName = 'NOMBRE_CIUDAD'
+      Origin = 'NOMBRE_CIUDAD'
+      Required = True
+      Size = 100
+    end
+  end
+  object BindingsList: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 380
+    Top = 93
+    object LinkFillControlToField1: TLinkFillControlToField
+      Category = 'Quick Bindings'
+      Control = ListViewCiudades
+      Track = True
+      FillDataSource = BindSourceDB
+      FillDisplayFieldName = 'NOMBRE_CIUDAD'
+      AutoFill = True
+      FillExpressions = <
+        item
+          SourceMemberName = 'ID_CIUDAD'
+          ControlMemberName = 'Detail'
+        end>
+      FillHeaderExpressions = <>
+      FillBreakGroups = <>
+    end
+  end
+  object BindSourceDB: TBindSourceDB
+    DataSet = FDMemTable
+    ScopeMappings = <>
+    Left = 264
+    Top = 96
+  end
+  object FDStanStorageJSONLink: TFDStanStorageJSONLink
+    Left = 160
+    Top = 176
+  end
+  object FDStanStorageBinLink: TFDStanStorageBinLink
+    Left = 352
+    Top = 176
+  end
+end
